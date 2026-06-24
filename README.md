@@ -78,6 +78,49 @@ If the browser shows an older design, hard refresh with `Ctrl + F5`.
 - `POST /api/draft-email`
 - `POST /api/habit-dna`
 
+## Deploy on Vercel
+
+LucidSprint can be deployed on Vercel as one project with both frontend and backend:
+
+- The frontend is served from `index.html`, `styles.css`, `app.js`, and `assets/`.
+- The backend is served from Python serverless functions inside `api/`.
+- The deployed app keeps the same API paths used locally, such as `/api/analyze` and `/api/triage`.
+
+### Option 1: Deploy from GitHub
+
+1. Push the repository to GitHub.
+2. Open [Vercel](https://vercel.com/).
+3. Choose **Add New Project**.
+4. Import `Parthivi-Jain-24/LucidSprint`.
+5. Use these settings:
+   - **Framework Preset**: Other
+   - **Build Command**: leave empty
+   - **Output Directory**: leave empty
+   - **Install Command**: leave empty
+6. Click **Deploy**.
+
+After deployment, open the Vercel URL and test:
+
+```text
+https://your-vercel-url.vercel.app/api/health
+```
+
+It should return:
+
+```json
+{"ok": true, "name": "LucidSprint Vercel API"}
+```
+
+### Option 2: Deploy with Vercel CLI
+
+```powershell
+npm install -g vercel
+vercel login
+vercel
+```
+
+When Vercel asks for setup choices, keep the defaults and deploy from the project root.
+
 ## Demo Flow
 
 1. Start on the home page and choose **Start with a problem**.
