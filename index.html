@@ -1,0 +1,619 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LucidSprint</title>
+    <link rel="stylesheet" href="styles.css?v=20260624-white-lab-card" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="rail" aria-label="App navigation">
+        <div class="mark" aria-label="LucidSprint logo">
+          <span>LS</span>
+          <strong>LucidSprint</strong>
+        </div>
+        <button class="rail-button active" data-view="home" title="Home" aria-label="Home">
+          <span>⌂</span>
+          <strong>Home</strong>
+        </button>
+        <button class="rail-button" data-view="dashboard" title="Workload" aria-label="Workload">
+          <span>⌂</span>
+          <strong>Workload</strong>
+        </button>
+        <button class="rail-button" data-view="calendar" title="Calendar Tetris" aria-label="Calendar Tetris">
+          <span>▦</span>
+          <strong>Calendar</strong>
+        </button>
+        <button class="rail-button" data-view="negotiator" title="Deadline Negotiator" aria-label="Deadline Negotiator">
+          <span>✎</span>
+          <strong>Email drafts</strong>
+        </button>
+        <button class="rail-button" data-view="habit" title="Habit DNA" aria-label="Habit DNA">
+          <span>◌</span>
+          <strong>History</strong>
+        </button>
+        <button class="rail-button" data-view="lab" title="Lucid Lab" aria-label="Lucid Lab">
+          <span>◇</span>
+          <strong>Lab</strong>
+        </button>
+      </aside>
+
+      <main>
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">Hackathon command center</p>
+            <h1>LucidSprint</h1>
+            <p class="subhead">A guided workspace that turns deadline pressure into a focused sprint plan, protected calendar time, and polished communication.</p>
+          </div>
+          <div class="top-actions">
+            <button class="ghost-button" id="demoReset">Demo reset</button>
+            <button class="panic-button" id="panicMode">Start triage</button>
+          </div>
+        </header>
+
+        <section class="view active" id="homeView">
+          <section class="home-hero">
+            <div>
+              <p class="eyebrow">Built for the last 6 hours before submission</p>
+              <h2>Ship the right work when the clock starts getting loud.</h2>
+              <p>Capture the work, see the cognitive load, protect focus time, and turn risky deadlines into clear next actions.</p>
+            </div>
+            <figure class="hero-visual">
+              <img src="assets/lucidsprint-hero.png" alt="Organized workspace with planning interface and calendar blocks" />
+            </figure>
+            <div class="home-cta">
+              <button class="panic-button" data-jump="dashboard" data-focus="panicText">Start with a problem</button>
+              <button class="secondary-button" data-jump="dashboard" data-focus="taskName">Add work manually</button>
+            </div>
+          </section>
+
+          <section class="demo-story" aria-label="Demo flow">
+            <div>
+              <span>01</span>
+              <strong>Tell it what is wrong</strong>
+              <p>Presentation late, demo broken, too many tasks, or a deadline you cannot meet.</p>
+            </div>
+            <div>
+              <span>02</span>
+              <strong>Get a realistic plan</strong>
+              <p>Autopilot prioritizes the queue and explains the next move without making the page noisy.</p>
+            </div>
+            <div>
+              <span>03</span>
+              <strong>Act from one place</strong>
+              <p>Move calendar blocks, draft an extension, and keep an audit trail for the demo.</p>
+            </div>
+          </section>
+
+          <section class="command-panel" aria-label="Command summary">
+            <article>
+              <span>Total tasks</span>
+              <strong id="metricTotal">0</strong>
+            </article>
+            <article>
+              <span>Open work</span>
+              <strong id="metricOpen">0</strong>
+            </article>
+            <article>
+              <span>Critical</span>
+              <strong id="metricCritical">0</strong>
+            </article>
+            <article>
+              <span>Completed</span>
+              <strong id="metricDone">0</strong>
+            </article>
+            <div class="command-search">
+              <label>
+                Search tasks
+                <input id="taskSearch" placeholder="Search by task, status, or category" />
+              </label>
+            </div>
+          </section>
+
+          <section class="workflow-strip" aria-label="Workflow shortcuts">
+            <button class="workflow-card" data-jump="dashboard" data-focus="taskName">
+              <span>1</span>
+              <strong>Capture workload</strong>
+              <small>Add tasks with priority, time needed, and deadline.</small>
+            </button>
+            <button class="workflow-card" data-jump="dashboard" data-action="start">
+              <span>2</span>
+              <strong>Choose next action</strong>
+              <small>Use the load score to start the right task first.</small>
+            </button>
+            <button class="workflow-card" data-jump="calendar" data-action="calendar">
+              <span>3</span>
+              <strong>Repair schedule</strong>
+              <small>Move flexible blocks while protecting commitments.</small>
+            </button>
+            <button class="workflow-card" data-jump="negotiator" data-action="email">
+              <span>4</span>
+              <strong>Negotiate time</strong>
+              <small>Draft a professional extension when needed.</small>
+            </button>
+          </section>
+
+          <section class="home-grid">
+            <article class="home-card" data-jump="dashboard">
+              <figure class="card-visual"><img src="assets/mini-workload.png" alt="Workload score dashboard preview" /></figure>
+              <span>Workload</span>
+              <strong>Score your cognitive load</strong>
+              <p>See what is urgent, what is overdue, and what deserves attention first.</p>
+            </article>
+            <article class="home-card" data-jump="calendar">
+              <figure class="card-visual"><img src="assets/mini-calendar.png" alt="Calendar optimization preview" /></figure>
+              <span>Calendar</span>
+              <strong>Create protected focus time</strong>
+              <p>Move flexible blocks and insert a sprint for the highest-risk task.</p>
+            </article>
+            <article class="home-card" data-jump="negotiator">
+              <figure class="card-visual"><img src="assets/mini-email.png" alt="Email draft approval preview" /></figure>
+              <span>Email</span>
+              <strong>Draft an extension request</strong>
+              <p>Turn overload into a clear message that stays approval-gated.</p>
+            </article>
+            <article class="home-card" data-jump="habit">
+              <figure class="card-visual"><img src="assets/mini-lab.png" alt="Behavior analytics preview" /></figure>
+              <span>History</span>
+              <strong>Review proof and patterns</strong>
+              <p>Track what changed and what the assistant learned from the session.</p>
+            </article>
+            <article class="home-card feature-card" data-jump="lab">
+              <figure class="card-visual"><img src="assets/mini-lab.png" alt="Lucid Lab behavioral prevention preview" /></figure>
+              <span>Lab</span>
+              <strong>Predict failure before it happens</strong>
+              <p>Profile deadline behavior, run pre-mortems, monitor emotional velocity, and prepare work overnight.</p>
+            </article>
+          </section>
+        </section>
+
+        <section class="view" id="dashboardView">
+          <section class="status-strip" aria-label="Live state summary">
+            <div>
+              <span class="status-label">Now</span>
+              <strong id="currentTime">09:42</strong>
+            </div>
+            <div>
+              <span class="status-label">Energy</span>
+              <strong id="energyLabel">Peak focus</strong>
+            </div>
+            <div>
+              <span class="status-label">Mood</span>
+              <div class="mood-row" id="moodPicker" aria-label="Mood picker">
+                <button class="mood active" data-mood="steady" data-score="-8">Steady</button>
+                <button class="mood" data-mood="wired" data-score="8">Wired</button>
+                <button class="mood" data-mood="flat" data-score="12">Flat</button>
+                <button class="mood" data-mood="locked in" data-score="-14">Focused</button>
+              </div>
+            </div>
+            <div>
+              <span class="status-label">Autopilot</span>
+              <label class="switch">
+                <input type="checkbox" id="autopilotToggle" checked />
+                <span></span>
+              </label>
+            </div>
+          </section>
+
+          <section class="integration-strip compact" aria-label="Integration status">
+            <article>
+              <span>Gemini Core</span>
+              <strong>Reasoning endpoint</strong>
+              <label class="mini-toggle"><input type="checkbox" checked data-integration="Gemini Core" /> Active</label>
+            </article>
+            <article>
+              <span>Calendar</span>
+              <strong>Reschedule simulator</strong>
+              <label class="mini-toggle"><input type="checkbox" checked data-integration="Calendar" /> Active</label>
+            </article>
+            <article>
+              <span>Gmail</span>
+              <strong>Approval-gated drafts</strong>
+              <label class="mini-toggle"><input type="checkbox" checked data-integration="Gmail" /> Active</label>
+            </article>
+            <article>
+              <span>Audit Trail</span>
+              <strong>Every intervention logged</strong>
+              <label class="mini-toggle"><input type="checkbox" checked data-integration="Audit Trail" /> Active</label>
+            </article>
+          </section>
+
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">Start here</p>
+              <h2>Today's operating plan</h2>
+              <p>Add what you need to finish, choose your current mood, then let Autopilot decide what deserves attention first.</p>
+            </div>
+            <button class="secondary-button" data-jump="dashboard" data-focus="panicText">I feel overwhelmed</button>
+          </div>
+          <div class="dashboard-grid">
+            <section class="load-panel">
+              <figure class="section-mini"><img src="assets/mini-workload.png" alt="Cognitive load planning interface" /></figure>
+              <div class="score-wrap">
+                <svg viewBox="0 0 160 160" class="score-ring" aria-hidden="true">
+                  <circle cx="80" cy="80" r="68" class="ring-track"></circle>
+                  <circle cx="80" cy="80" r="68" class="ring-progress" id="ringProgress"></circle>
+                </svg>
+                <div class="score-content">
+                  <span>Cognitive Load</span>
+                  <strong id="loadScore">78</strong>
+                  <em id="loadState">High Load</em>
+                </div>
+              </div>
+              <div class="recommendation">
+                <span id="actionPill">RESCHEDULE</span>
+                <p id="reasoning">Two deadlines are colliding with your current energy dip.</p>
+              </div>
+              <details class="score-details">
+                <summary>Why this score?</summary>
+                <div id="scoreDetails">Autopilot is combining urgency, overdue work, duration pressure, time of day, mood, and completed tasks.</div>
+              </details>
+              <div class="risk-panel">
+                <h2>Risk factors</h2>
+                <div id="riskList" class="risk-list"></div>
+              </div>
+              <div class="decision-row">
+                <button id="doNext">Start next task</button>
+                <button id="whatNow">Explain next move</button>
+                <button id="reshuffle">Run Tetris</button>
+                <button class="quiet-button" id="completeFocus">Complete focus task</button>
+              </div>
+            </section>
+
+            <section class="task-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Work queue</p>
+                  <h2>Today's queue</h2>
+                </div>
+                <button class="icon-button" id="addTask" title="Add task" aria-label="Add task">+</button>
+              </div>
+              <form class="task-form" id="taskForm">
+                <label>
+                  Task
+                  <input id="taskName" autocomplete="off" placeholder="Investor update" />
+                </label>
+                <label>
+                  Priority
+                  <select id="taskPriority" aria-label="Task priority">
+                    <option value="critical">Critical</option>
+                    <option value="high">High</option>
+                    <option value="medium">Medium</option>
+                    <option value="low">Low</option>
+                  </select>
+                </label>
+                <label>
+                  Hours
+                  <input id="taskDuration" type="number" min="0.5" step="0.5" value="1" aria-label="Task duration in hours" />
+                </label>
+                <label>
+                  Due
+                  <input id="taskDeadline" type="time" value="17:30" aria-label="Task deadline" />
+                </label>
+                <button type="submit" class="form-submit">Add task</button>
+              </form>
+              <div class="preset-row" aria-label="Quick task presets">
+                <button type="button" data-preset="Presentation due soon">Presentation due soon</button>
+                <button type="button" data-preset="Bug before demo">Bug before demo</button>
+                <button type="button" data-preset="Email follow-up">Email follow-up</button>
+              </div>
+              <div class="task-toolbar" aria-label="Task controls">
+                <div class="segmented" id="taskFilters">
+                  <button class="active" data-filter="all">All</button>
+                  <button data-filter="pending">Pending</button>
+                  <button data-filter="in_progress">In progress</button>
+                  <button data-filter="done">Done</button>
+                </div>
+                <label>
+                  Sort
+                  <select id="taskSort">
+                    <option value="recommended">Recommended</option>
+                    <option value="deadline">Deadline</option>
+                    <option value="priority">Priority</option>
+                    <option value="duration">Duration</option>
+                  </select>
+                </label>
+              </div>
+              <div class="task-list" id="taskList"></div>
+            </section>
+
+            <section class="coach-panel">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Coach</p>
+                  <h2>Tell Autopilot what is blocking you</h2>
+                </div>
+                <span class="live-dot" id="liveDot"></span>
+              </div>
+              <div class="transcript" id="transcript">
+                <p><strong>Coach</strong> Tell me what is making today feel impossible. I will triage it against your real queue.</p>
+              </div>
+              <div class="stress-chips" aria-label="Common stress prompts">
+                <button data-stress="Presentation due in 2 hours and I have not started">Presentation due soon</button>
+                <button data-stress="Demo bug is blocking submission">Demo bug</button>
+                <button data-stress="Too many tasks due today and I do not know what to do first">Too many tasks</button>
+              </div>
+              <div class="panic-input">
+                <input id="panicText" placeholder="Example: presentation due in 2 hours and I have not started" />
+                <button id="sendPanic">Send</button>
+              </div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="calendarView">
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">Calendar Tetris</p>
+              <h2>Make room without breaking commitments</h2>
+              <p>Locked events stay protected. Flexible focus blocks can move so the highest-risk task gets a real slot.</p>
+            </div>
+            <button class="secondary-button" id="calendarRunTop">Optimize calendar</button>
+          </div>
+          <div class="split-layout">
+            <section>
+              <figure class="section-mini"><img src="assets/mini-calendar.png" alt="Calendar rearrangement interface" /></figure>
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Calendar</p>
+                  <h2>Protected focus plan</h2>
+                </div>
+                <button id="calendarRun">Optimize</button>
+              </div>
+              <div class="calendar-grid" id="calendarGrid"></div>
+            </section>
+            <section class="insight-panel">
+              <h2>Move log</h2>
+              <p id="calendarSummary">Run Optimize to create a plan from your current tasks and flexible events.</p>
+              <div class="calendar-tools">
+                <button id="addFocusBlock">Add focus block</button>
+                <button id="clearMoves">Reset moves</button>
+              </div>
+              <div id="moveLog"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="negotiatorView">
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">Deadline Negotiator</p>
+              <h2>Turn overload into a clear message</h2>
+              <p>Generate approval-gated drafts for the task most likely to miss its deadline.</p>
+            </div>
+            <button class="secondary-button" id="draftEmailsTop">Draft email</button>
+          </div>
+          <div class="split-layout">
+            <section>
+              <figure class="section-mini"><img src="assets/mini-email.png" alt="Email draft approval interface" /></figure>
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">Communication</p>
+                  <h2>Deadline Negotiator</h2>
+                </div>
+                <button id="draftEmails">Draft variants</button>
+              </div>
+              <div class="email-list" id="emailList"></div>
+            </section>
+            <section class="insight-panel">
+              <h2>Approval trail</h2>
+              <p id="approvalCopy">Drafts stay local until you approve one. Calendar changes are staged first, then sent.</p>
+              <label class="mini-field">
+                Recipient
+                <input id="recipientInput" value="Maya, accelerator mentor" />
+              </label>
+              <label class="mini-field">
+                Reason
+                <select id="delayReason">
+                  <option value="quality">Protect quality</option>
+                  <option value="dependency">Waiting on dependency</option>
+                  <option value="scope">Scope changed</option>
+                </select>
+              </label>
+              <button id="approveEmail">Approve selected draft</button>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="habitView">
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">History and learning</p>
+              <h2>What Autopilot learned from the session</h2>
+              <p>Review scheduling patterns and the audit trail of every change made during the demo.</p>
+            </div>
+          </div>
+          <div class="habit-grid">
+            <section>
+              <figure class="section-mini"><img src="assets/mini-lab.png" alt="Productivity pattern analysis interface" /></figure>
+              <p class="eyebrow">Habit DNA</p>
+              <h2>Your productivity fingerprint</h2>
+              <div class="dna-card">
+                <div class="dna-orbit" aria-hidden="true">
+                  <span></span><span></span><span></span><span></span>
+                </div>
+                <div>
+                  <strong id="habitHeadline">Presentation work starts too late</strong>
+                  <p id="habitSummary">You usually begin deck tasks 93 minutes before the deadline. Autopilot now adds prep blocks the day before.</p>
+                </div>
+              </div>
+              <div class="pattern-list" id="patternList"></div>
+            </section>
+            <section class="insight-panel">
+              <p class="eyebrow">Audit trail</p>
+              <h2>Proof-of-work trail</h2>
+              <p>Instead of only showing AI recommendations, the app records every intervention as a small timeline judges can audit.</p>
+              <button class="ghost-button" id="exportProof">Export proof log</button>
+              <div class="proof-list" id="proofList"></div>
+            </section>
+          </div>
+        </section>
+
+        <section class="view" id="labView">
+          <div class="page-intro">
+            <div>
+              <p class="eyebrow">Lucid Lab</p>
+              <h2>Behavior-aware deadline prevention</h2>
+              <p>These are the differentiators: the app does not only remind you. It detects failure patterns, predicts risk, intervenes gently, and prepares useful work when you are offline.</p>
+            </div>
+            <button class="secondary-button" id="runLabScan">Run full scan</button>
+          </div>
+
+          <section class="lab-hero">
+            <div class="lab-pitch">
+              <p class="eyebrow">Winning thesis</p>
+              <h2>Predict failures early, prevent the spiral, prepare the next move.</h2>
+              <p>LucidSprint combines behavioral signals, calendar pressure, emotional drift, social accountability, and autonomous prep work into one daily-life system.</p>
+            </div>
+            <figure class="lab-visual">
+              <img src="assets/lucidsprint-hero.png" alt="LucidSprint planning workspace visual" />
+            </figure>
+            <div class="lab-score">
+              <span>Failure risk</span>
+              <strong id="failureRisk">--</strong>
+              <small id="failureReason">Run scan to classify your current deadline pattern.</small>
+            </div>
+          </section>
+
+          <section class="lab-grid">
+            <article class="lab-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">1. Archetype Engine</p>
+                  <h2>Deadline personality profile</h2>
+                </div>
+                <button id="detectArchetype">Detect</button>
+              </div>
+              <div class="signal-result">
+                <strong id="archetypeName">Not scanned yet</strong>
+                <p id="archetypeCopy">Autopilot classifies patterns like perfectionist, overwhelmed, thrill-seeker, dreamer, avoider, or busy fool.</p>
+              </div>
+              <button class="quiet-button" id="applyArchetype">Apply intervention</button>
+            </article>
+
+            <article class="lab-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">2. Screen Context</p>
+                  <h2>Permission-based context awareness</h2>
+                </div>
+              </div>
+              <label class="mini-field">
+                Current screen
+                <select id="screenContext">
+                  <option value="docs">Docs or editor</option>
+                  <option value="youtube">YouTube or streaming</option>
+                  <option value="email">Email inbox</option>
+                  <option value="calendar">Calendar</option>
+                  <option value="locked">Locked screen or break</option>
+                </select>
+              </label>
+              <ol class="intervention-ladder" id="interventionLadder"></ol>
+            </article>
+
+            <article class="lab-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">3. Pressure Cooker</p>
+                  <h2>Social accountability card</h2>
+                </div>
+                <button id="generateStake">Generate stake</button>
+              </div>
+              <label class="mini-field">
+                Commitment
+                <input id="commitmentInput" placeholder="Ship investor presentation by 11:30" />
+              </label>
+              <div class="pressure-row">
+                <select id="commitmentVisibility" aria-label="Commitment visibility">
+                  <option value="anonymous">Anonymous</option>
+                  <option value="named">Named</option>
+                </select>
+                <button id="addCommitment">Commit</button>
+              </div>
+              <p class="stake-copy" id="stakeCopy">Stake: post a short miss report if this slips.</p>
+              <div class="leaderboard" id="leaderboard"></div>
+            </article>
+
+            <article class="lab-card wide-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">4. Pre-Mortem Engine</p>
+                  <h2>Imagine the failure, then schedule the prevention</h2>
+                </div>
+                <button id="runPremortem">Generate tree</button>
+              </div>
+              <div class="premortem-form">
+                <label class="mini-field">
+                  High-stakes task
+                  <input id="premortemTask" placeholder="Investor presentation" />
+                </label>
+                <label class="mini-field">
+                  Why might it fail?
+                  <input id="premortemReason" placeholder="I start too late, polish the wrong slides, or miss demo proof" />
+                </label>
+              </div>
+              <div class="execution-tree" id="executionTree"></div>
+            </article>
+
+            <article class="lab-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">5. Emotional Velocity</p>
+                  <h2>Risk from changing feelings</h2>
+                </div>
+              </div>
+              <label class="mini-field">
+                Task to monitor
+                <select id="emotionTask"></select>
+              </label>
+              <div class="emotion-row" id="emotionButtons">
+                <button data-emotion="excited">Excited</button>
+                <button data-emotion="neutral">Neutral</button>
+                <button data-emotion="meh">Meh</button>
+                <button data-emotion="anxious">Anxious</button>
+                <button data-emotion="dreading">Dreading</button>
+              </div>
+              <div class="velocity-meter" id="velocityMeter"></div>
+            </article>
+
+            <article class="lab-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">6. Overnight Autopilot</p>
+                  <h2>Asynchronous task execution</h2>
+                </div>
+                <button id="runOvernight">Run queue</button>
+              </div>
+              <div class="pressure-row">
+                <select id="overnightType" aria-label="Overnight job type">
+                  <option value="research">Research summary</option>
+                  <option value="email">Email drafts</option>
+                  <option value="agenda">Meeting agenda</option>
+                  <option value="doc">Document summary</option>
+                  <option value="weekly">Weekly report</option>
+                </select>
+                <button id="queueOvernight">Queue</button>
+              </div>
+              <div class="overnight-list" id="overnightList"></div>
+            </article>
+
+            <article class="lab-card wide-card">
+              <div class="panel-heading">
+                <div>
+                  <p class="eyebrow">7. Conflict Graph</p>
+                  <h2>Hidden dependency and energy conflicts</h2>
+                </div>
+                <button id="buildGraph">Build graph</button>
+              </div>
+              <div class="conflict-graph" id="conflictGraph"></div>
+            </article>
+          </section>
+        </section>
+      </main>
+    </div>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+    <script src="app.js?v=20260624-white-lab-card"></script>
+  </body>
+</html>
