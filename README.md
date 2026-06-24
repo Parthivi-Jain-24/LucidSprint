@@ -56,7 +56,8 @@ LucidSprint/
 ## Run Locally
 
 ```powershell
-cd "C:\Users\Parthivi Jain\Desktop\projects\Vibe2Ship"
+git clone https://github.com/Parthivi-Jain-24/LucidSprint.git
+cd LucidSprint
 python server.py
 ```
 
